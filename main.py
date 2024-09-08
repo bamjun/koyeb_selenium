@@ -92,7 +92,7 @@ async def get_page_title(user: str = "user", password: str = "password"):
         driver.quit()
 
     # Return the authorization key as a response
-    return {"Authorization": authorization_key, "screenshot": screenshot_path}
+    return {"Authorization": driver.requests, "screenshot": screenshot_path}
 
     # POST /send-message?password=YOUR_DISCORD_AUTH_TOKEN&url=https://discord.com/api/v9/channels/NEW_CHANNEL_ID/messages HTTP/1.1
     # Host: localhost:8000
