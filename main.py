@@ -48,10 +48,10 @@ async def get_page_title(user: str = "user", password: str = "password"):
         driver.get("https://discord.com/login")
 
         # 명시적 대기로 페이지 로딩 완료 및 로그인 폼 대기
-        email_input = WebDriverWait(driver, 20).until(
+        email_input = WebDriverWait(driver, 50).until(
             EC.presence_of_element_located((By.NAME, "email"))
         )
-        password_input = WebDriverWait(driver, 20).until(
+        password_input = WebDriverWait(driver, 50).until(
             EC.presence_of_element_located((By.NAME, "password"))
         )
 
@@ -60,7 +60,7 @@ async def get_page_title(user: str = "user", password: str = "password"):
         password_input.send_keys(password)  # 여기에 비밀번호 입력
 
         # 로그인 버튼 클릭 (로그인 버튼의 정확한 클래스 확인 필요)
-        login_button = WebDriverWait(driver, 10).until(
+        login_button = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, "//div[text()='로그인']"))
         )
         login_button.click()
