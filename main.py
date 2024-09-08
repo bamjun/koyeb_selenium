@@ -181,10 +181,17 @@ class MessageContent(BaseModel):
 async def send_message(
     payload: MessageContent,  # 바디로 받는 content
     password: str = Query("password"),  # 쿼리 파라미터로 받는 password
-    url: str = Query("https://discord.com/api/v9/channels/384597925134860289/messages"),
+    url: str = Query("https://discord.com/channels/384541991289094147/384546383207858186"),  # Discord 채널 URL
 ):
-    # Discord 채널 URL
-    # url = "https://discord.com/api/v9/channels/384597925134860289/messages"
+    # URL에서 채널 ID 추출 ("/channels/" 뒤에 있는 ID 값을 추출)
+    if "/channels/" in url:
+        try:
+            channel_id = url.split("/channels/")[1].split("/")[1]
+            api_url = f"https://discord.com/api/v9/channels/{channel_id}/messages"
+        except IndexError:
+            return {"error": "Invalid URL format"}
+    else:
+        return {"error": "URL must contain /channels/"}
 
     # Discord로 보낼 메시지 내용
     data = {"content": payload.content}
@@ -193,7 +200,7 @@ async def send_message(
     headers = {"Authorization": password}
 
     # Discord로 요청 보내기
-    res = requests.post(url, json=data, headers=headers)
+    res = requests.post(api_url, json=data, headers=headers)
 
     # 상태 코드에 따른 반환 메시지
     if res.status_code == 200:
