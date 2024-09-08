@@ -74,7 +74,7 @@ async def get_page_title(user: str = "user", password: str = "password"):
         for request in driver.requests:
             if "Authorization" in request.headers:
                 authorization_key += request.headers["Authorization"]
-                break
+                # break
 
     except Exception as e:
         # 오류가 발생했을 때 스크린샷 찍기
