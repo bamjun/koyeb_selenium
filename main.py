@@ -20,6 +20,8 @@ async def get_page_title(user: str = "default-agent"):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")  # GPU 비활성화 (필요시)
+    chrome_options.add_argument("--window-size=1920,1080")  # 크기 설정
     chrome_options.add_argument(f"User-Agent={user}")
 
     # Initialize the WebDriver (Chrome)
