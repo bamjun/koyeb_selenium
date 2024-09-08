@@ -35,16 +35,13 @@ async def get_page_title(user: str = "user", password: str = "password"):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    # chrome_options.add_argument("--disable-gpu")  # GPU 비활성화 (필요시)
-    # chrome_options.add_argument("--window-size=1920,1080")  # 크기 설정
     chrome_options.add_argument(f"User-Agent={user_agent}")
 
     # Initialize the WebDriver (Chrome)
     driver = webdriver.Chrome(seleniumwire_options={'verify_ssl': False}, options=chrome_options)
 
     try:
-        # Open a website (example: Google)
-        # Discord URL로 이동
+        # Open a website (example: Discord)
         driver.get("https://discord.com/login")
 
         # 명시적 대기로 페이지 로딩 완료 및 로그인 폼 대기
@@ -56,10 +53,10 @@ async def get_page_title(user: str = "user", password: str = "password"):
         )
 
         # 아이디와 비밀번호 입력
-        email_input.send_keys(user)  # 여기에 아이디 입력
-        password_input.send_keys(password)  # 여기에 비밀번호 입력
+        email_input.send_keys(user)
+        password_input.send_keys(password)
 
-        # 로그인 버튼 클릭 (로그인 버튼의 정확한 클래스 확인 필요)
+        # 로그인 버튼 클릭
         login_button = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, "//div[text()='로그인']"))
         )
@@ -67,21 +64,31 @@ async def get_page_title(user: str = "user", password: str = "password"):
 
         time.sleep(10)
 
+        # 로그인 후 스크린샷 찍기
+        screenshot_path = "/path/in/container/login_page.png"  # 저장할 경로 설정
+        driver.save_screenshot(screenshot_path)
+
         # 네트워크 요청 중에서 헤더가 있는 모든 요청을 출력
+        authorization_key = None
         for request in driver.requests:
             if 'Authorization' in request.headers:
                 authorization_key = request.headers['Authorization']
                 break
 
-        # Get the title of the page
-        title = driver.title
-        
+    except Exception as e:
+        # 오류가 발생했을 때 스크린샷 찍기
+        error_screenshot_path = "/path/in/container/error_page.png"
+        driver.save_screenshot(error_screenshot_path)
+        driver.quit()
+        return {"error": str(e), "screenshot": error_screenshot_path}
+    
     finally:
         # Close the WebDriver
         driver.quit()
 
-    # Return the title as a response
-    return {"Authorization": authorization_key}
+    # Return the authorization key as a response
+    return {"Authorization": authorization_key, "screenshot": screenshot_path}
+
 
 
     # POST /send-message?password=YOUR_DISCORD_AUTH_TOKEN&url=https://discord.com/api/v9/channels/NEW_CHANNEL_ID/messages HTTP/1.1
