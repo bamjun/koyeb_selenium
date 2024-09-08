@@ -21,8 +21,8 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 
 # Install pip packages from requirements.txt
 COPY requirements.txt .
-RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip --root-user-action=ignore \
+    && pip install --no-cache-dir -r requirements.txt --root-user-action=ignore
 
 # Copy the rest of the application code
 COPY . .
