@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "koyeb-selenium"
+version = "0.1.0"
+description = ""
+authors = ["bamjun <khy5116@naver.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.114.0"
+uvicorn = "^0.30.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
