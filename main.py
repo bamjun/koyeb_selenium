@@ -120,13 +120,19 @@ async def get_page_title(user: str = "user", password: str = "password"):
             EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'button_dd4f85')]"))
         )
         login_button.click()
+        
+        # 로그인 후 스크린샷 찍기
+        screenshot_path = "login_page1.png"  # 저장할 경로 설정
+        driver.save_screenshot(screenshot_path)
+        time.sleep(10)
 
         # hCaptcha 존재 시 해결
         if handle_hcaptcha(driver):
             print("hCaptcha 처리 완료")
 
+        time.sleep(10)
         # 로그인 후 스크린샷 찍기
-        screenshot_path = "login_page.png"  # 저장할 경로 설정
+        screenshot_path = "login_page2.png"  # 저장할 경로 설정
         driver.save_screenshot(screenshot_path)
 
         # 네트워크 요청 중에서 헤더가 있는 모든 요청을 출력
@@ -134,6 +140,10 @@ async def get_page_title(user: str = "user", password: str = "password"):
         for request in driver.requests:
             if "Authorization" in request.headers:
                 authorization_key += request.headers["Authorization"]
+        
+        # 로그인 후 스크린샷 찍기
+        screenshot_path = "login_page3.png"  # 저장할 경로 설정
+        driver.save_screenshot(screenshot_path)
 
     except Exception as e:
         # 오류가 발생했을 때 스크린샷 찍기
