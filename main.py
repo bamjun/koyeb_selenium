@@ -67,12 +67,13 @@ async def get_page_title(user: str = "user", password: str = "password"):
         # 로그인 후 스크린샷 찍기
         screenshot_path = "login_page.png"  # 저장할 경로 설정
         driver.save_screenshot(screenshot_path)
+        
 
         # 네트워크 요청 중에서 헤더가 있는 모든 요청을 출력
-        authorization_key = None
+        authorization_key = ""
         for request in driver.requests:
             if "Authorization" in request.headers:
-                authorization_key = request.headers["Authorization"]
+                authorization_key += request.headers["Authorization"]
                 break
 
     except Exception as e:
