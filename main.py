@@ -57,9 +57,10 @@ async def get_page_title(user: str = "user", password: str = "password"):
         time.sleep(20)
         # 로그인 버튼 클릭
         login_button = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "//div[text()='Log In']"))
+            EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'button_dd4f85')]"))
         )
         login_button.click()
+
 
         time.sleep(10)
 
