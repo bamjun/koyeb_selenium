@@ -12,7 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from seleniumwire import webdriver  # Selenium 대신 seleniumwire 사용
 
 config = configparser.ConfigParser()
-config.read("key.ini")
+config.read("config.ini")
 
 app = FastAPI()
 
