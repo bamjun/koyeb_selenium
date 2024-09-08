@@ -55,10 +55,11 @@ async def get_page_title(user: str = "user", password: str = "password"):
         # 아이디와 비밀번호 입력
         email_input.send_keys(user)
         password_input.send_keys(password)
-
+        
+        time.sleep(20)
         # 로그인 버튼 클릭
         login_button = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.XPATH, "//div[text()='로그인']"))
+            EC.element_to_be_clickable((By.CLASS_NAME, "//div[text()='Log In']"))
         )
         login_button.click()
 
