@@ -26,10 +26,18 @@ async def get_page_title(user: str = "user", password: str = "password"):
     if user == "user":
         return {"error": "Invalid"}
 
-    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
-
     # Chrome 옵션 설정
     chrome_options = Options()
+    
+    
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
+    chrome_options.add_argument("accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
+    chrome_options.add_argument("accept-language=ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+    chrome_options.add_argument("sec-fetch-site=none")
+    chrome_options.add_argument("sec-fetch-mode=navigate")
+    chrome_options.add_argument("sec-fetch-user=?1")
+    chrome_options.add_argument("sec-fetch-dest=document")
+
 
     chrome_options.add_argument("--incognito")  # 시크릿 모드 추가
     chrome_options.add_argument("--ignore-certificate-errors")  # 인증서 오류 무시
@@ -37,7 +45,6 @@ async def get_page_title(user: str = "user", password: str = "password"):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument(f"User-Agent={user_agent}")
 
     # Initialize the WebDriver (Chrome)
     driver = webdriver.Chrome(seleniumwire_options={"verify_ssl": False}, options=chrome_options)
