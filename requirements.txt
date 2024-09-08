@@ -1,3 +1,8 @@
 fastapi
 uvicorn
 selenium
+selenium-wire
+packaging
+setuptools
+blinker
+webdriver-manager
