@@ -65,7 +65,7 @@ async def get_page_title(user: str = "user", password: str = "password"):
         time.sleep(10)
 
         # 로그인 후 스크린샷 찍기
-        screenshot_path = "/path/in/container/login_page.png"  # 저장할 경로 설정
+        screenshot_path = "login_page.png"  # 저장할 경로 설정
         driver.save_screenshot(screenshot_path)
 
         # 네트워크 요청 중에서 헤더가 있는 모든 요청을 출력
@@ -77,7 +77,7 @@ async def get_page_title(user: str = "user", password: str = "password"):
 
     except Exception as e:
         # 오류가 발생했을 때 스크린샷 찍기
-        error_screenshot_path = "/path/in/container/error_page.png"
+        error_screenshot_path = "error_page.png"
         driver.save_screenshot(error_screenshot_path)
         driver.quit()
         return {"error": str(e), "screenshot": error_screenshot_path}
