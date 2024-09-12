@@ -1,9 +1,2 @@
 fastapi
 uvicorn
-selenium
-selenium-wire
-packaging
-setuptools
-blinker
-mitmproxy
-webdriver-manager
